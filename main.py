@@ -29,7 +29,7 @@ from wordcloud import WordCloud
 def process_raw_data(input_path: Path) -> list:
     """第一阶段：处理原始数据，生成基础信息"""
     # 初始化tokenizer
-    enc = tiktoken.encoding_for_model("gpt-3.5-turbo")
+    enc = tiktoken.encoding_for_model("gpt-4o")
     
     # 读取原始数据
     raw_data = json.loads(input_path.read_text(encoding='utf-8'))
@@ -171,7 +171,7 @@ def create_contribution_wall(processed_data: list, year: int = 2024, save_path: 
     # 首先过滤数据
     # filtered_data = filter_data_by_year(processed_data, year)
     # 提取日期并创建DataFrame
-    dates = [datetime.fromisoformat(conv['created_at']).date() for conv in filtered_data]
+    dates = [datetime.fromisoformat(conv['created_at']).date() for conv in processed_data]
     df = pd.DataFrame({'date': pd.to_datetime(dates)})
     
     # 计算每天的对话次数
